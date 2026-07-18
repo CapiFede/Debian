@@ -134,7 +134,7 @@ _helium_has_data() {
 # perfil con datos; reemplaza uno vacío (lo aparta como .vacio-* por las dudas).
 # Si el drive no está montado o no hay backup, no hace nada. Los genera backup.sh.
 restore_helium() {
-  local src="/mnt/Other/Backup/helium"
+  local src="/mnt/Other/Backup/Helium/profiles"
   if [ ! -d "$src" ]; then
     echo "==> (Sin backup de Helium en $src; salteo el restore.)"
     return 0
@@ -167,7 +167,7 @@ restore_helium() {
 # pero SIN forma de abrirlos con su icono. Corrige el binario helium-browser
 # (nombre en Arch) -> helium (Debian) por si el backup viene del sistema viejo.
 restore_helium_launchers() {
-  local meta="/mnt/Other/Backup/helium-launchers"
+  local meta="/mnt/Other/Backup/Helium/launchers"
   if [ ! -d "$meta" ]; then
     echo "==> (Sin lanzadores de Helium en $meta; salteo.)"
     return 0

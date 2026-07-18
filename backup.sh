@@ -19,10 +19,10 @@
 set -uo pipefail
 
 # Destino en el drive Other (ext4). Cambialo si tu punto de montaje es otro.
-DEST="/mnt/Other/Backup/helium"
+DEST="/mnt/Other/Backup/Helium/profiles"
 # Meta de los perfiles AISLADOS: sus lanzadores .desktop, iconos y el script
 # helium-profile. Va aparte de DEST para no confundirse con un perfil más.
-META="/mnt/Other/Backup/helium-launchers"
+META="/mnt/Other/Backup/Helium/launchers"
 
 # El drive ahora es ext4 (permisos Unix reales) → modo archivo completo.
 # --delete refleja en el backup lo que hayas borrado en el perfil.
