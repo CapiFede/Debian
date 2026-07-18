@@ -129,12 +129,12 @@ _helium_has_data() {
   return 1
 }
 
-# Restaura los perfiles de Helium desde el drive Backup. Usa rsync (NUNCA cp -a:
+# Restaura los perfiles de Helium desde el drive Other. Usa rsync (NUNCA cp -a:
 # si el destino ya existe, cp copia ADENTRO y te anida el perfil). Respeta un
 # perfil con datos; reemplaza uno vacío (lo aparta como .vacio-* por las dudas).
 # Si el drive no está montado o no hay backup, no hace nada. Los genera backup.sh.
 restore_helium() {
-  local src="/mnt/Backup/helium"
+  local src="/mnt/Other/Backup/helium"
   if [ ! -d "$src" ]; then
     echo "==> (Sin backup de Helium en $src; salteo el restore.)"
     return 0
@@ -167,7 +167,7 @@ restore_helium() {
 # pero SIN forma de abrirlos con su icono. Corrige el binario helium-browser
 # (nombre en Arch) -> helium (Debian) por si el backup viene del sistema viejo.
 restore_helium_launchers() {
-  local meta="/mnt/Backup/helium-launchers"
+  local meta="/mnt/Other/Backup/helium-launchers"
   if [ ! -d "$meta" ]; then
     echo "==> (Sin lanzadores de Helium en $meta; salteo.)"
     return 0
@@ -321,7 +321,7 @@ do_basic() {
   install_claude
 
   # Restaurar mis perfiles de Helium + sus lanzadores/iconos/script desde el
-  # drive Backup (si está conectado). Los respalda backup.sh.
+  # drive Other (si está conectado). Los respalda backup.sh.
   restore_helium
   restore_helium_launchers
 
