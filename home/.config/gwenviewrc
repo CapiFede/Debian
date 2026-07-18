@@ -1,0 +1,32 @@
+[General]
+LastUsedVersion=210800
+
+[MainWindow]
+MenuBar=Disabled
+
+[Recent Files]
+File1[$e]=/mnt/Backup/Other/Otros/e/WhatsApp Image 2026-02-06 at 2.53.48 PM.jpeg
+File10[$e]=/mnt/Backup/Other/Otros/f/eab69640-3f7f-48a5-b7ac-a2f7b5ad2278.jpeg
+File2[$e]=/mnt/Backup/Other/Otros/e/grok-video-c52d52a6-cd36-4ca4-8a34-653fefeca1f2.mp4
+File3[$e]=/mnt/Backup/Other/Otros/e/grok-image-a25a5ac7-b98a-4a01-b87e-d96b24dcd4c0.jpg
+File4[$e]=/mnt/Backup/Other/Otros/e/grok-image-c52d52a6-cd36-4ca4-8a34-653fefeca1f2.jpg
+File5[$e]=/mnt/Backup/Other/Otros/a/0d6ebcba-5650-46ba-960a-693b3e1225f6.jpg
+File6[$e]=/mnt/Backup/Other/Falltick Book Cover.png
+File7[$e]=/mnt/Backup/Other/Otros/d/fe5fb5af-281d-478e-ac13-5dfaeb6dbf2e.jpg
+File8[$e]=/mnt/Backup/Other/Otros/d/Screenshot_1.png
+File9[$e]=/mnt/Backup/Other/Otros/f/fe5fb5af-281d-478e-ac13-5dfaeb6dbf2e.jpg
+Name1[$e]=WhatsApp Image 2026-02-06 at 2.53.48 PM.jpeg
+Name10[$e]=eab69640-3f7f-48a5-b7ac-a2f7b5ad2278.jpeg
+Name2[$e]=grok-video-c52d52a6-cd36-4ca4-8a34-653fefeca1f2.mp4
+Name3[$e]=grok-image-a25a5ac7-b98a-4a01-b87e-d96b24dcd4c0.jpg
+Name4[$e]=grok-image-c52d52a6-cd36-4ca4-8a34-653fefeca1f2.jpg
+Name5[$e]=0d6ebcba-5650-46ba-960a-693b3e1225f6.jpg
+Name6[$e]=Falltick Book Cover.png
+Name7[$e]=fe5fb5af-281d-478e-ac13-5dfaeb6dbf2e.jpg
+Name8[$e]=Screenshot_1.png
+Name9[$e]=fe5fb5af-281d-478e-ac13-5dfaeb6dbf2e.jpg
+
+[SideBar]
+InformationSplitterSizes=383,445
+IsVisible ViewMode=true
+SideBarSplitterSizes=155,606

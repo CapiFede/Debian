@@ -1,0 +1,6 @@
+{
+    "version": "2.2.1",
+    "autoload": {
+        "SONiX USB KEYBOARD": "Main"
+    }
+}

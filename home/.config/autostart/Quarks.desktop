@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Quarks
+Comment=Quarksstartup script
+Exec=/home/michisama/Applications/Quarks.AppImage 
+StartupNotify=false
+Terminal=false

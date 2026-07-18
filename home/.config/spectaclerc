@@ -1,0 +1,15 @@
+[Annotations]
+annotationToolType=7
+rectangleFillColor=255,0,0,0
+rectangleStrokeColor=170,0,0
+
+[General]
+ocrLanguages=afr
+
+[ImageSave]
+lastImageSaveAsLocation=file:///home/michisama/Screenshots/Icons/Screenshot_20260715_121933.png
+lastImageSaveLocation=file:///home/michisama/Screenshots/Icons/Screenshot_20260715_121933.png
+translatedScreenshotsFolder=Screenshots
+
+[VideoSave]
+translatedScreencastsFolder=Screencasts

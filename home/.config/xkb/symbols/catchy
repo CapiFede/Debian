@@ -1,0 +1,11 @@
+// Variante de teclado personalizada para el proyecto Catchy.
+// Hereda "English (intl., with AltGr dead keys)" tal cual, y SOLO
+// retoca la tecla 1: invierte los pisos 3 y 4 para que AltGr=¡ y AltGr+Shift=¹.
+partial alphanumeric_keys
+xkb_symbols "espacc" {
+    include "us(altgr-intl)"
+    name[Group1] = "English (Catchy: AltGr = inverted marks)";
+
+    // Pisos:        1      Shift   AltGr        AltGr+Shift
+    key <AE01> { [   1,    exclam,  exclamdown,  onesuperior ] };
+};

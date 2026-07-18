@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Discord
+Comment=All-in-one voice and text chat for gamers.
+Exec=env XDG_CURRENT_DESKTOP=Unity /usr/bin/discord --start-minimized
+Icon=discord
+StartupWMClass=discord
+Terminal=false
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true

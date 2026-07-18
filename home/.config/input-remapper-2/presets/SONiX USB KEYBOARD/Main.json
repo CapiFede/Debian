@@ -1,0 +1,120 @@
+[
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 108,
+                "origin_hash": "74fff0e0ce10ee25a3cf70adbac5067e"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_PLAYPAUSE",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 105,
+                "origin_hash": "74fff0e0ce10ee25a3cf70adbac5067e"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_PREVIOUSSONG",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 106,
+                "origin_hash": "74fff0e0ce10ee25a3cf70adbac5067e"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_NEXTSONG",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 103,
+                "origin_hash": "74fff0e0ce10ee25a3cf70adbac5067e"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_F13",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 111,
+                "origin_hash": "74fff0e0ce10ee25a3cf70adbac5067e"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_F14",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 29,
+                "origin_hash": "74fff0e0ce10ee25a3cf70adbac5067e"
+            },
+            {
+                "type": 1,
+                "code": 46,
+                "origin_hash": "74fff0e0ce10ee25a3cf70adbac5067e"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_F15",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 29,
+                "origin_hash": "74fff0e0ce10ee25a3cf70adbac5067e"
+            },
+            {
+                "type": 1,
+                "code": 47,
+                "origin_hash": "74fff0e0ce10ee25a3cf70adbac5067e"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_F18",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 109,
+                "origin_hash": "74fff0e0ce10ee25a3cf70adbac5067e"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_F19",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 69,
+                "origin_hash": "74fff0e0ce10ee25a3cf70adbac5067e"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_NUMLOCK",
+        "mapping_type": "key_macro"
+    }
+]

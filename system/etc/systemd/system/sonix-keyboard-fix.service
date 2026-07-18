@@ -1,0 +1,9 @@
+[Unit]
+Description=Resetea el hub USB para detectar el teclado auxiliar SONiX (0c45:8009) en arranque en frio
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/sonix-keyboard-fix.sh
+
+[Install]
+WantedBy=multi-user.target
