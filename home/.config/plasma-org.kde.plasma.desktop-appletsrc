@@ -82,7 +82,7 @@ groupingAppIdBlacklist=helium.desktop
 groupingLauncherUrlBlacklist=applications:helium.desktop
 highlightWindows=true
 indicateAudioStreams=false
-launchers=preferred://filemanager,applications:helium.desktop,applications:com.discordapp.Discord.desktop
+launchers=preferred://filemanager,applications:helium.desktop
 
 [Containments][213][Applets][246]
 activityId=
@@ -167,7 +167,7 @@ DialogHeight=630
 DialogWidth=810
 
 [Containments][213][Applets][246][Configuration]
-PreloadWeight=55
+PreloadWeight=70
 SystrayContainmentId=247
 
 [Containments][213][Applets][246][General]
@@ -257,6 +257,9 @@ PreloadWeight=42
 immutability=1
 plugin=org.kde.plasma.volume
 
+[Containments][247][Applets][251][Configuration]
+PreloadWeight=60
+
 [Containments][247][Applets][251][Configuration][General]
 migrated=true
 
@@ -269,6 +272,9 @@ PreloadWeight=42
 [Containments][247][Applets][254]
 immutability=1
 plugin=org.kde.plasma.clipboard
+
+[Containments][247][Applets][254][Configuration]
+PreloadWeight=55
 
 [Containments][247][Applets][255][Configuration]
 PreloadWeight=42
@@ -297,7 +303,7 @@ immutability=1
 plugin=org.kde.plasma.mediacontroller
 
 [Containments][247][Applets][329][Configuration]
-PreloadWeight=52
+PreloadWeight=44
 
 [Containments][247][ConfigDialog]
 DialogHeight=690

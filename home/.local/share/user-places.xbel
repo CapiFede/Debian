@@ -154,32 +154,12 @@
  <separator>
   <info>
    <metadata owner="http://www.kde.org">
-    <UDI>/org/freedesktop/UDisks2/block_devices/nvme0n1p1</UDI>
-    <isSystemItem>true</isSystemItem>
-    <uuid>2450d73450d70c04</uuid>
-   </metadata>
-  </info>
- </separator>
- <separator>
-  <info>
-   <metadata owner="http://www.kde.org">
     <UDI>/org/freedesktop/UDisks2/block_devices/nvme1n1p2</UDI>
     <isSystemItem>true</isSystemItem>
     <uuid>12afef3b-1bd4-47d7-95a0-c2a6a4a9f3fd</uuid>
    </metadata>
   </info>
  </separator>
- <bookmark href="file:///home/michisama/Screenshots">
-  <title>Screenshots</title>
-  <info>
-   <metadata owner="http://freedesktop.org">
-    <bookmark:icon name="default-folder-pictures"/>
-   </metadata>
-   <metadata owner="http://www.kde.org">
-    <ID>1781546490/0</ID>
-   </metadata>
-  </info>
- </bookmark>
  <bookmark href="file:///home/michisama/.config">
   <title>.config</title>
   <info>
@@ -199,6 +179,44 @@
    </metadata>
    <metadata owner="http://www.kde.org">
     <ID>1781567215/0</ID>
+   </metadata>
+  </info>
+ </bookmark>
+ <separator>
+  <info>
+   <metadata owner="http://www.kde.org">
+    <UDI>/org/freedesktop/UDisks2/block_devices/nvme0n1p2</UDI>
+    <isSystemItem>true</isSystemItem>
+    <uuid>4b367b11-70f5-4f03-90cb-4801e689c3a9</uuid>
+   </metadata>
+  </info>
+ </separator>
+ <separator>
+  <info>
+   <metadata owner="http://www.kde.org">
+    <UDI>/org/freedesktop/UDisks2/block_devices/nvme1n1p1</UDI>
+    <isSystemItem>true</isSystemItem>
+    <uuid>2450d73450d70c04</uuid>
+   </metadata>
+  </info>
+ </separator>
+ <separator>
+  <info>
+   <metadata owner="http://www.kde.org">
+    <UDI>/org/freedesktop/UDisks2/block_devices/nvme1n1p1</UDI>
+    <isSystemItem>true</isSystemItem>
+    <uuid>14e28818-a8fe-47e8-87d5-94fd67dabdb2</uuid>
+   </metadata>
+  </info>
+ </separator>
+ <bookmark href="file:///home/michisama/Michi">
+  <title>Michi</title>
+  <info>
+   <metadata owner="http://freedesktop.org">
+    <bookmark:icon name="inode-directory"/>
+   </metadata>
+   <metadata owner="http://www.kde.org">
+    <ID>1784412573/0</ID>
    </metadata>
   </info>
  </bookmark>

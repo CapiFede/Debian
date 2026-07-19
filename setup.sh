@@ -6,12 +6,16 @@
 # Debian mínimo (sin escritorio).
 #
 # USO:
-#   bash setup.sh basic   → escritorio KDE + configs + mis apps de siempre
-#                           (KDE, multimedia, oficina, gaming, navegador, etc.)
-#   bash setup.sh apps    → lo pesado/ocasional (desarrollo, virtualización,
-#                           VS Code, Android Studio, Discord…). Correr tras basic.
-#   bash setup.sh all     → las dos fases seguidas
-#   bash setup.sh         → sin argumento = all
+#   bash setup.sh   → instala y configura TODO de una: escritorio KDE + mis
+#                     configs + mis apps de siempre (KDE, multimedia, oficina,
+#                     gaming, navegador, VS Code, GitHub Desktop, Discord,
+#                     Claude Code…).
+#
+#   bash setup.sh quarks [ruta-al-repo]
+#                 → NO instala nada: SOLO restaura los secretos de Quarks (clave
+#                   de firma + los .env) desde el drive. Asumo que YA clonaste el
+#                   repo de código: pasá su ruta o uso el default (~/Proyects/
+#                   Quarks). Los respalda backup.sh (modo quarks).
 #
 # IDEMPOTENTE: se puede correr cuantas veces quieras; instala/aplica solo lo que
 # falta. Al final imprime un RESUMEN con lo que haya fallado (si algo falla).
@@ -21,7 +25,7 @@
 set -euo pipefail
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
-MODE="${1:-all}"          # basic | apps | all  (default: all)
+MODE="${1:-all}"          # all (default: setup completo) | quarks (solo secretos)
 
 if [ "$(id -u)" -eq 0 ]; then
   echo "✗ No lo corras como root. Corrélo como tu usuario; pedirá sudo solo."
@@ -187,6 +191,60 @@ restore_helium_launchers() {
   command -v kbuildsycoca6 >/dev/null 2>&1 && kbuildsycoca6 --noincremental >/dev/null 2>&1 || true
 }
 
+# Restaura los secretos de Quarks (clave de firma + los .env) desde el drive
+# Other. Los respalda backup.sh (modo quarks). NO instala nada ni pide sudo:
+# usa `install` (coreutils) para copiar preservando permisos restrictivos.
+#
+# La clave de firma (~/.tauri) y el .env de firma (~/.config) se restauran
+# siempre. El core/.env vive DENTRO del repo de código, así que ASUME que YA lo
+# clonaste: la ruta llega como argumento ($1) o cae en el default ~/Proyects/
+# Quarks. Si el repo no está, avisa (no rompe) y te dice dónde quedó el backup.
+restore_quarks() {  # $1 = ruta al repo de Quarks ya clonado (opcional)
+  local src="/mnt/Other/Backup/Quarks"
+  local proj="${1:-}"
+  [ -n "$proj" ] || proj="$HOME/Proyects/Quarks"
+
+  if [ ! -d "$src" ]; then
+    echo "==> (Sin backup de Quarks en $src; nada que restaurar.)"
+    return 0
+  fi
+  echo "==> Restaurando secretos de Quarks desde $src…"
+
+  # 1) Clave de FIRMA de releases -> ~/.tauri (privada 600, pública 644).
+  if [ -f "$src/tauri/quarks.key" ]; then
+    install -D -m 600 "$src/tauri/quarks.key" "$HOME/.tauri/quarks.key" \
+      || warn "No pude restaurar ~/.tauri/quarks.key"
+    [ -f "$src/tauri/quarks.key.pub" ] \
+      && install -D -m 644 "$src/tauri/quarks.key.pub" "$HOME/.tauri/quarks.key.pub"
+    chmod 700 "$HOME/.tauri" 2>/dev/null || true
+    echo "    ✓ clave de firma -> ~/.tauri/"
+  else
+    warn "No hay clave de firma en el backup ($src/tauri/quarks.key)."
+  fi
+
+  # 2) .env de FIRMA (TAURI_SIGNING_*) -> ~/.config/com.quarks.app/ (600).
+  if [ -f "$src/config/com.quarks.app/quarks.env" ]; then
+    install -D -m 600 "$src/config/com.quarks.app/quarks.env" \
+      "$HOME/.config/com.quarks.app/quarks.env" \
+      || warn "No pude restaurar el .env de firma."
+    chmod 700 "$HOME/.config/com.quarks.app" 2>/dev/null || true
+    echo "    ✓ .env de firma -> ~/.config/com.quarks.app/"
+  else
+    warn "No hay .env de firma en el backup ($src/config/com.quarks.app/quarks.env)."
+  fi
+
+  # 3) core/.env (client IDs de Google OAuth) -> DENTRO del repo ya clonado.
+  if [ -f "$src/project/core/.env" ]; then
+    if [ -d "$proj/core" ]; then
+      install -D -m 600 "$src/project/core/.env" "$proj/core/.env" \
+        || warn "No pude restaurar core/.env en $proj."
+      echo "    ✓ core/.env -> $proj/core/.env"
+    else
+      warn "No encuentro el repo de Quarks en '$proj' (falta $proj/core). Cloná el repo y corré: bash setup.sh quarks /ruta/al/repo — o copiá a mano $src/project/core/.env"
+    fi
+  fi
+}
+
 # VS Code desde el repo oficial de Microsoft (.deb nativo). Idempotente.
 install_vscode() {
   echo "==> VS Code (repo de Microsoft)…"
@@ -250,11 +308,9 @@ install_system() {
 }
 
 # ═══════════════════════════════════════════════════════════════════════════
-#  FASE "BASIC" — escritorio personalizado + mis apps de siempre
+#  SETUP — escritorio personalizado + todas mis apps, de una sola pasada
 # ═══════════════════════════════════════════════════════════════════════════
-do_basic() {
-  echo "######################## FASE: BASIC ########################"
-
+do_setup() {
   echo "==> Actualizando el sistema…"
   sudo apt update
   sudo apt upgrade -y
@@ -271,7 +327,7 @@ do_basic() {
 
   # Apps por apt.
   echo "==> Apps (apt)…"
-  BASIC_APPS=(
+  APPS=(
     # KDE
     konsole dolphin kate ark gwenview okular kde-spectacle kcalc partitionmanager
     kde-config-gtk-style kdegraphics-thumbnailers
@@ -283,20 +339,33 @@ do_basic() {
     libreoffice
     # gaming
     gamemode mangohud winetricks
+    # desarrollo
+    openjdk-17-jdk openjdk-21-jre python3-pip npm
   )
-  apt_install "${BASIC_APPS[@]}"
+  apt_install "${APPS[@]}"
 
-  # Flatpaks de basic. El primero baja el "runtime" de KDE (~cientos de MB), por
-  # única vez. qView = visor de imágenes puro (no está en apt).
-  echo "==> Flatpaks (qView, Bitwarden, Lutris)…"
+  # Flatpaks. El primero baja el "runtime" de KDE (~cientos de MB), por única
+  # vez. qView = visor de imágenes puro (no está en apt). Discord por Flatpak:
+  # el .deb nativo se cuelga al llegar mensajes en este Debian (libunity9 bloquea
+  # D-Bus); el Flatpak es estable (la contra: no muestra badge en el taskbar).
+  echo "==> Flatpaks (qView, Bitwarden, Lutris, Discord)…"
   flatpak_install \
     com.interversehq.qView \
     com.bitwarden.desktop \
-    net.lutris.Lutris
+    net.lutris.Lutris \
+    com.discordapp.Discord
+    # -- Descomentar cuando los quiera: --
+    # org.prismlauncher.PrismLauncher
+    # com.heroicgameslauncher.hgl
 
   # Navegador Helium + Claude Code (cada uno por su método oficial).
   install_helium
   install_claude
+
+  # VS Code (repo de Microsoft) + GitHub Desktop nativo (.deb, no Flatpak: la
+  # Flatpak buggea en Wayland/zypak).
+  install_vscode
+  install_github_desktop
 
   # Restaurar mis perfiles de Helium + sus lanzadores/iconos/script desde el
   # drive Other (si está conectado). Los respalda backup.sh.
@@ -326,49 +395,13 @@ do_basic() {
   # Fixes de sistema + servicios (joystick, teclado, input-remapper).
   install_system
 
-  # Dejar el comando 'backup' a mano (symlink a backup.sh de este repo), para
-  # respaldar los perfiles de Helium con solo escribir 'backup'.
+  # Dejar el comando 'backup' a mano (symlink a backup.sh de este repo): con
+  # escribir 'backup' respaldás los perfiles de Helium Y capturás tus configs
+  # al repo, de una.
   mkdir -p "$HOME/.local/bin"
   ln -sf "$DIR/backup.sh" "$HOME/.local/bin/backup"
 
-  echo "== BASIC listo. =="
-}
-
-# ═══════════════════════════════════════════════════════════════════════════
-#  FASE "APPS" — lo pesado/ocasional (correr DESPUÉS de basic)
-# ═══════════════════════════════════════════════════════════════════════════
-do_apps() {
-  echo "######################### FASE: APPS #########################"
-
-  sudo apt update
-  echo "==> Programas (apt): desarrollo + virtualización…"
-  APPS_APT=(
-    # desarrollo
-    openjdk-17-jdk openjdk-21-jre python3-pip npm
-    # virtualización (VM de Windows)
-    qemu-system-x86 qemu-utils libvirt-daemon-system virt-manager swtpm virtiofsd
-  )
-  apt_install "${APPS_APT[@]}"
-
-  # VS Code (repo de Microsoft).
-  install_vscode
-
-  # GitHub Desktop nativo (.deb) — reemplaza la Flatpak (buggea en Wayland/zypak).
-  install_github_desktop
-
-  # Flatpaks pesados/ocasionales. Android Studio pesa ~1 GB.
-  # Discord por Flatpak: el .deb nativo se cuelga al llegar mensajes en este
-  # Debian (dependencia libunity9 bloquea D-Bus). El Flatpak es estable — la
-  # contra es que NO muestra el badge de notificaciones en el taskbar.
-  echo "==> Flatpaks…"
-  flatpak_install \
-    com.discordapp.Discord \
-    com.google.AndroidStudio
-    # -- Descomentar cuando los quiera: --
-    # org.prismlauncher.PrismLauncher
-    # com.heroicgameslauncher.hgl
-
-  # ── Joystick Xbox (driver xone) — SOLO en tu PC real, no en la VM ──────────
+  # ── Joystick Xbox (driver xone) — SOLO en tu PC real ───────────────────────
   # xone no está en Debian; se instala por DKMS desde el código fuente.
   # Descomentá cuando lo corras en la máquina real con el control:
   # apt_install dkms git curl
@@ -376,26 +409,25 @@ do_apps() {
   # ( cd /tmp/xone && sudo ./install.sh ) && sudo xone-get-firmware.sh --skip-disclaimer
   # rm -rf /tmp/xone
 
-  echo "== APPS listo. =="
+  echo "== Setup listo. =="
 }
 
 # ═══════════════════════════════════════════════════════════════════════════
-#  DISPATCHER + RESUMEN
+#  RUN + RESUMEN
 # ═══════════════════════════════════════════════════════════════════════════
 case "$MODE" in
-  basic) do_basic ;;
-  apps)  do_apps ;;
-  all)   do_basic; do_apps ;;
-  *)     echo "Uso: bash setup.sh [basic|apps|all]"; exit 1 ;;
+  all)    do_setup ;;
+  quarks) restore_quarks "${2:-}" ;;
+  *)      echo "Uso: bash setup.sh [quarks [ruta-al-repo]]"; echo "     (sin argumentos: setup completo)"; exit 1 ;;
 esac
 
 echo
 echo "════════════════════════════ RESUMEN ════════════════════════════"
 if [ "${#WARNINGS[@]}" -eq 0 ]; then
-  echo "✅ ¡Listo! Sin avisos. (modo: $MODE)"
+  echo "✅ ¡Listo! Sin avisos."
 else
-  echo "⚠ Terminó con ${#WARNINGS[@]} aviso(s) (modo: $MODE) — revisá esto:"
+  echo "⚠ Terminó con ${#WARNINGS[@]} aviso(s) — revisá esto:"
   for w in "${WARNINGS[@]}"; do echo "   • $w"; done
 fi
-echo "   Cerrá sesión y volvé a entrar (o reiniciá) para ver todo aplicado."
+[ "$MODE" = "all" ] && echo "   Cerrá sesión y volvé a entrar (o reiniciá) para ver todo aplicado."
 echo "═════════════════════════════════════════════════════════════════"

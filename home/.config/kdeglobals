@@ -132,8 +132,13 @@ ForegroundNormal=252,252,252
 ForegroundPositive=39,174,96
 ForegroundVisited=155,89,182
 
+[DirSelect Dialog]
+DirSelectDialog Size=960,582
+History Items[$e]=file:$HOME/Proyects,file:///mnt/Other/Backup,file:$HOME/Proyects,file:///mnt/Backup/Work,file:$HOME/Proyects/Repstly,file:$HOME/Proyects/debiansetup
+Splitter State=\x00\x00\x00\xff\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00o\x00\x00\x02\xa8\x00\xff\xff\xff\xff\x01\x00\x00\x00\x01\x00
+
 [General]
-ColorSchemeHash=9d38eb71ded8ff549da26d57d7cbab9164da243a
+ColorSchemeHash=7b61368c55eaab4075e7b1ae9501f3675b0f830f
 XftAntialias=true
 XftHintStyle=hintslight
 XftSubPixel=rgb
@@ -178,6 +183,9 @@ Allow Expansion=false
 Automatically select filename extension=true
 Breadcrumb Navigation=true
 Decoration position=2
+LocationCombo Completionmode=5
+PathCombo Completionmode=5
+Show Bookmarks=false
 Show Full Path=false
 Show Inline Previews=true
 Show Preview=false

@@ -12,6 +12,12 @@ BorderActivate=9
 [Plugins]
 shakecursorEnabled=false
 
+[Tiling]
+padding=4
+
+[Tiling][3c137c3b-174e-5ae9-b62f-ab39912bdae8]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
 [Tiling][3caafb0e-59b3-498e-9411-ebf9a185a4f8][]
 padding=4
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
@@ -30,6 +36,12 @@ tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"wi
 
 [Tiling][3caafb0e-59b3-498e-9411-ebf9a185a4f8][eba4c232-d938-4f3d-a8e4-b8506fe1045c]
 padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][6161a316-aeb5-5c9a-a3cf-459fb1686063]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
+[Tiling][edffa411-980c-5a66-b1c1-a774ac4c06a8]
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
 [Windows]
