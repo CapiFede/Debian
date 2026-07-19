@@ -222,28 +222,6 @@ install_github_desktop() {
   rm -f "$tmp"
 }
 
-install_discord() {
-  # Discord NATIVO (.deb), no Flatpak. Motivo: el badge de notificaciones (el
-  # numerito sobre el icono en la barra) usa la Unity Launcher API por D-Bus, y
-  # el sandbox del Flatpak no la deja salir. Con el .deb + el .desktop de
-  # home/.local/share/applications/discord.desktop (que lanza con
-  # XDG_CURRENT_DESKTOP=Unity) el badge funciona. El .deb es un bootstrap chico
-  # que baja la app real en el primer arranque.
-  echo "==> Discord (.deb nativo, para que ande el badge de notificaciones)…"
-  if command -v discord >/dev/null 2>&1; then
-    echo "    Discord ya está instalado."
-    return 0
-  fi
-  local tmp
-  tmp="$(mktemp --suffix=.deb)"
-  if curl -fsSL "https://discord.com/api/download?platform=linux&format=deb" -o "$tmp"; then
-    sudo apt install -y "$tmp" || warn "No se instaló Discord (.deb)."
-  else
-    warn "No pude descargar Discord (.deb)."
-  fi
-  rm -f "$tmp"
-}
-
 # Archivos de sistema (system/ -> /) + habilitar servicios.
 install_system() {
   if [ -d "$DIR/system" ]; then
@@ -378,13 +356,13 @@ do_apps() {
   # GitHub Desktop nativo (.deb) — reemplaza la Flatpak (buggea en Wayland/zypak).
   install_github_desktop
 
-  # Discord nativo (.deb) — reemplaza la Flatpak (el sandbox no deja pasar el
-  # badge de notificaciones). Ver install_discord y el .desktop en home/.
-  install_discord
-
   # Flatpaks pesados/ocasionales. Android Studio pesa ~1 GB.
+  # Discord por Flatpak: el .deb nativo se cuelga al llegar mensajes en este
+  # Debian (dependencia libunity9 bloquea D-Bus). El Flatpak es estable — la
+  # contra es que NO muestra el badge de notificaciones en el taskbar.
   echo "==> Flatpaks…"
   flatpak_install \
+    com.discordapp.Discord \
     com.google.AndroidStudio
     # -- Descomentar cuando los quiera: --
     # org.prismlauncher.PrismLauncher
