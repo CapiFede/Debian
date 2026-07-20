@@ -333,8 +333,10 @@ do_setup() {
     kde-config-gtk-style kdegraphics-thumbnailers
     # utilidades (curl + gpg los necesitan Helium y Claude Code)
     input-remapper git rsync flatpak plasma-discover-backend-flatpak xdg-utils curl gpg
-    # multimedia
+    # multimedia (pipewire-alsa = puente ALSA→PipeWire; sin él las apps ALSA
+    # como OpenShot no tienen audio y tiran "no channels")
     vlc yt-dlp ffmpegthumbnailer gstreamer1.0-plugins-good gstreamer1.0-libav
+    pipewire-alsa
     # oficina
     libreoffice
     # gaming
